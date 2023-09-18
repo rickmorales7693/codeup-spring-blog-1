@@ -1,10 +1,13 @@
 package com.codeup.codeupspringblog1.controllers;
 
 
+
 import com.codeup.codeupspringblog1.models.Post;
+import com.codeup.codeupspringblog1.repositories.PostRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.w3c.dom.html.HTMLDocument;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,39 +16,37 @@ import java.util.List;
 @RequestMapping("/posts")
 public class PostController {
 
+    private PostRepository postDao;
+
+    public PostController(PostRepository postDao) {
+        this.postDao = postDao;
+    }
+
     @GetMapping("")
-//    @ResponseBody
-    public String index(Model model){
-        List<Post> postArr = new ArrayList<>();
-        Post newpost = new Post("Hello", "Hello World");
-        Post newpost2 = new Post("Codeup", "Hello Codeup");
-
-        postArr.add(newpost);
-        postArr.add(newpost2);
-
+    public String index(Model model) {
+        List<Post> postArr = postDao.findAll();
         model.addAttribute("posts", postArr);
-
         return "post/index";
     }
 
-    @GetMapping("/{id}")
-//    @ResponseBody
-    public String viewIndividualPost(@PathVariable long id, Model model) {
-        Post newpost = new Post("Hello", "Hello World");
-        model.addAttribute("post", newpost);
-        return "posts/show";
-    }
+//    @GetMapping("/posts/{id}")
+//    public String viewIndividualPost(@PathVariable long id, Model model) {
+//        List<Post> newpost = postDao.findAll();
+//        model.addAttribute("post", newpost);
+//        return "posts/show";
+//    }
 
     @GetMapping("/create")
-//    @ResponseBody
-    public String showCreatePostView() {
-        return "view the form for creating a post";
+    public String showCreatePostView () {
+        return "post/create";
     }
+
 
     @PostMapping("/create")
 //    @ResponseBody
-    public String createNewPost() {
-        return "create a new post";
+    public String createNewPost(@RequestParam(name = "title") String title, @RequestParam(name="body") String body) {
+        postDao.save(new Post(title, body));
+        return "redirect:/posts";
     }
 
 }
