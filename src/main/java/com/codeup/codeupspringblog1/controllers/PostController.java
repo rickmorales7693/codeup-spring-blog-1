@@ -1,26 +1,28 @@
 package com.codeup.codeupspringblog1.controllers;
 
-
-
 import com.codeup.codeupspringblog1.models.Post;
 import com.codeup.codeupspringblog1.repositories.PostRepository;
+import com.codeup.codeupspringblog1.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.w3c.dom.html.HTMLDocument;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/posts")
 public class PostController {
 
-    private PostRepository postDao;
 
-    public PostController(PostRepository postDao) {
+    private PostRepository postDao;
+    private UserRepository userDao;
+
+    @Autowired
+    public PostController(PostRepository postDao, UserRepository userDao) {
         this.postDao = postDao;
+        this.userDao = userDao;
     }
+
 
     @GetMapping("")
     public String index(Model model) {
