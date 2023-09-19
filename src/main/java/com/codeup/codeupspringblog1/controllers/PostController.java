@@ -29,12 +29,15 @@ public class PostController {
         return "post/index";
     }
 
-//    @GetMapping("/posts/{id}")
-//    public String viewIndividualPost(@PathVariable long id, Model model) {
-//        List<Post> newpost = postDao.findAll();
-//        model.addAttribute("post", newpost);
-//        return "posts/show";
-//    }
+    @GetMapping("/posts/{id}")
+    public String viewIndividualPost(@PathVariable long id, Model model) {
+        if (postDao.existsById(id)) {
+            Post post = postDao.findById(id).get();
+            model.addAttribute("post", post);
+            return "post/show";
+        }
+            return "redirect:/posts";
+    }
 
     @GetMapping("/create")
     public String showCreatePostView () {
