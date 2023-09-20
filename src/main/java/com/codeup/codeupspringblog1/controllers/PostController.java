@@ -1,6 +1,7 @@
 package com.codeup.codeupspringblog1.controllers;
 
 import com.codeup.codeupspringblog1.models.Post;
+import com.codeup.codeupspringblog1.models.User;
 import com.codeup.codeupspringblog1.repositories.PostRepository;
 import com.codeup.codeupspringblog1.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/posts")
@@ -51,12 +53,32 @@ public class PostController {
 
     @PostMapping("/create")
     public String createNewPost(@ModelAttribute Post post) {
+        User hardCode = userDao.findById(1L).get();
         Post postToSave = new Post(
                 post.getTitle(),
-                post.getBody()
+                post.getBody(),
+                hardCode
         );
         postDao.save(postToSave);
         return "redirect:/posts";
+    }
+
+
+    @GetMapping("/{id}/edit")
+    public String editPost(@PathVariable long id, Model model){
+        Post postToEdit = postDao.findById(id).get();
+        model.addAttribute("post", postToEdit);
+        return "post/edit";
+    }
+
+
+    @PostMapping("/{id}/edit")
+    public String insertEdit(@ModelAttribute Post post, @PathVariable long id){
+        Post postToEdit = postDao.findById(id).get();
+        postToEdit.setTitle(post.getTitle());
+        postToEdit.setBody(post.getBody());
+        postDao.save(postToEdit);
+        return "redirect:/posts/" + id;
     }
 
 }
