@@ -8,15 +8,15 @@
 <div id="wrapper">
     <h1>Create New Post</h1>
 
-    <form action="/posts/create" method="post">
+    <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
         <div>
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title"/>
+            <label>Title:</label>
+            <input th:field="*{title}" type="text"/>
         </div>
         <div>
-            <label for="body">Body:</label>
-            <textarea id="body" name="body"></textarea>
-            <input type="hidden" name="user_id" value="1">
+            <label>Body:</label>
+            <textarea th:field="*{body}"></textarea>
+<!--            <input th:field="*{body}">-->
         </div>
         <div>
             <button type="submit">Create</button>
