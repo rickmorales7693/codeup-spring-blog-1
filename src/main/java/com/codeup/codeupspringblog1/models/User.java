@@ -16,8 +16,6 @@ public class User {
     private Long id;
 
 
-
-
     @Column(name = "username", columnDefinition = "varchar(200) NOT NULL")
     private String username;
 

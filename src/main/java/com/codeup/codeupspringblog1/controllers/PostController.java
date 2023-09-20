@@ -4,6 +4,7 @@ import com.codeup.codeupspringblog1.models.Post;
 import com.codeup.codeupspringblog1.models.User;
 import com.codeup.codeupspringblog1.repositories.PostRepository;
 import com.codeup.codeupspringblog1.repositories.UserRepository;
+import com.codeup.codeupspringblog1.services.EmailSvc;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +19,13 @@ public class PostController {
 
     private PostRepository postDao;
     private UserRepository userDao;
+    private EmailSvc emailSvc;
 
-    public PostController(PostRepository postDao, UserRepository userDao) {
+
+    public PostController(PostRepository postDao, UserRepository userDao, EmailSvc emailSvc) {
         this.postDao = postDao;
         this.userDao = userDao;
+        this.emailSvc = emailSvc;
     }
 
 
@@ -60,6 +64,7 @@ public class PostController {
                 hardCode
         );
         postDao.save(postToSave);
+        emailSvc.prepareAndSend(postToSave, "You created a post!!", "Here is some more information about the post you created... yay.");
         return "redirect:/posts";
     }
 
@@ -80,5 +85,10 @@ public class PostController {
         postDao.save(postToEdit);
         return "redirect:/posts/" + id;
     }
+
+
+
+
+
 
 }

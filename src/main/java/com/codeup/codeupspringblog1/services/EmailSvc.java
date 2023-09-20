@@ -2,6 +2,7 @@ package com.codeup.codeupspringblog1.services;
 
 
 import com.codeup.codeupspringblog1.models.Ad;
+import com.codeup.codeupspringblog1.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -34,6 +35,17 @@ public class EmailSvc {
         }
     }
 
-
+    public void prepareAndSend(Post post, String subject, String body){
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setFrom(from);
+        msg.setTo("user@email.com");
+        msg.setSubject(subject);
+        msg.setText(body);
+        try{
+            this.javaMailSender.send(msg);
+        } catch (MailException ex){
+            System.err.println(ex.getMessage());
+        }
+    }
 
 }
