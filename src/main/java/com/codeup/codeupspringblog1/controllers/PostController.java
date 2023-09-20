@@ -4,6 +4,7 @@ import com.codeup.codeupspringblog1.models.Post;
 import com.codeup.codeupspringblog1.repositories.PostRepository;
 import com.codeup.codeupspringblog1.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,6 @@ public class PostController {
     private PostRepository postDao;
     private UserRepository userDao;
 
-    @Autowired
     public PostController(PostRepository postDao, UserRepository userDao) {
         this.postDao = postDao;
         this.userDao = userDao;
@@ -31,7 +31,7 @@ public class PostController {
         return "post/index";
     }
 
-    @GetMapping("/posts/{id}")
+    @GetMapping("/{id}")
     public String viewIndividualPost(@PathVariable long id, Model model) {
         if (postDao.existsById(id)) {
             Post post = postDao.findById(id).get();
@@ -42,15 +42,16 @@ public class PostController {
     }
 
     @GetMapping("/create")
-    public String showCreatePostView () {
+    public String showCreatePostView (Model model) {
+        model.addAttribute("post", new Post());
         return "post/create";
     }
 
 
     @PostMapping("/create")
-//    @ResponseBody
-    public String createNewPost(@RequestParam(name = "title") String title, @RequestParam(name="body") String body) {
-        postDao.save(new Post(title, body));
+    public String createNewPost(@RequestParam(name = "title") String title, @RequestParam(name="body") String body, @RequestParam(name="user_id") Long id){
+        Post post = new Post(title, body, userDao.findById(id).get());
+        postDao.save(post);
         return "redirect:/posts";
     }
 

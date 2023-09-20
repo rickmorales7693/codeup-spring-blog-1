@@ -6,7 +6,6 @@
 </head>
 <body>
 <div id="wrapper">
-    <nav th:replace="partials/partials :: navbar"></nav>
     <h1>Create New Post</h1>
 
     <form action="/posts/create" method="post">
@@ -17,12 +16,12 @@
         <div>
             <label for="body">Body:</label>
             <textarea id="body" name="body"></textarea>
+            <input type="hidden" name="user_id" value="1">
         </div>
         <div>
             <button type="submit">Create</button>
         </div>
     </form>
 </div>
-<th:block th:replace="partials/partials :: scripts"></th:block>
 </body>
 </html>

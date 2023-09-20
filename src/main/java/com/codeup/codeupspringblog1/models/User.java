@@ -12,23 +12,24 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id",columnDefinition = "int(11) UNSIGNED NOT NULL AUTO_INCREMENT", nullable = false)
+//    @Column(name = "id",columnDefinition = "int(11) UNSIGNED NOT NULL AUTO_INCREMENT", nullable = false)
     private Long id;
 
-    @Getter
+
+
+
     @Column(name = "username", columnDefinition = "varchar(200) NOT NULL")
     private String username;
 
-    @Getter
+
     @Column(name = "email", columnDefinition = "varchar(200) NOT NULL")
     private String email;
 
-    @Getter
+
     @Column(name = "password", columnDefinition = "varchar(200) NOT NULL")
     private String password;
 
-
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user_id")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<Post> post;
 
 
@@ -48,6 +49,21 @@ public class User {
         this.password = password;
     }
 
+    public User(String username, String email, String password, List<Post> post) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.post = post;
+    }
+
+    public User(Long id, String username, String email, String password, List<Post> post) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.post = post;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -64,6 +80,28 @@ public class User {
         this.password = password;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public List<Post> getPost() {
+        return post;
+    }
+
+    public void setPost(List<Post> post) {
+        this.post = post;
+    }
 
 }

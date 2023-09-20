@@ -14,11 +14,9 @@ public class Post {
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED NOT NULL AUTO_INCREMENT", nullable = false)
     private Long id;
 
-    @Getter
     @Column(name = "title", columnDefinition = "varchar(200) NOT NULL")
     private String title;
 
-    @Getter
     @Column(name = "body", columnDefinition = "TEXT NOT NULL")
     private String body;
 
@@ -28,6 +26,19 @@ public class Post {
 
 
     public Post() {
+    }
+
+    public Post(String title, String body, User user) {
+        this.title = title;
+        this.body = body;
+        this.user = user;
+    }
+
+    public Post(Long id, String title, String body, User user) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.user = user;
     }
 
     public Post(String title, String body) {
@@ -54,4 +65,23 @@ public class Post {
     }
 
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
