@@ -28,6 +28,9 @@ public class Ad {
         this.description = description;
     }
 
+    public Ad(String title, String description) {
+    }
+
     public void setId(long id) {
         this.id = id;
     }

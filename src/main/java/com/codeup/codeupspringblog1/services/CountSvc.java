@@ -2,7 +2,10 @@ package com.codeup.codeupspringblog1.services;
 
 import com.codeup.codeupspringblog1.repositories.AdRepository;
 import com.codeup.codeupspringblog1.repositories.ContactRepository;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class CountSvc {
 
     private ContactRepository contactsDao;
@@ -13,8 +16,8 @@ public class CountSvc {
         this.adsDao = adsDao;
     }
 
-//    public long returnAdsContactsCount() {
-//        return contactsDao.count() + adsDao.count();
-//    }
+    public long returnAdsContactsCount() {
+        return contactsDao.count() + adsDao.count();
+    }
 
 }

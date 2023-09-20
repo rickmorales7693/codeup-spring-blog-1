@@ -39,9 +39,10 @@ public class ContactController {
 
     @GetMapping("/contacts/ads/count")
     @ResponseBody
-    public long returnContactsAdsCount(){
+    public long returnContactsAdsCount() {
         return countSvc.returnAdsContactsCount();
     }
+
 
 
 }
