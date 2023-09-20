@@ -1,9 +1,9 @@
 package com.codeup.codeupspringblog1.controllers;
 
-import ch.qos.logback.core.model.Model;
 import com.codeup.codeupspringblog1.models.Ad;
 import com.codeup.codeupspringblog1.repositories.AdRepository;
 import com.codeup.codeupspringblog1.services.EmailSvc;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class AdController {
     @GetMapping("/ads/{id}")
     @ResponseBody
     public Ad returnAd(@PathVariable Long id) {
-        return adsDao.getAdById(id);
+        return adsDao.findAdById(id);
     }
 
     @GetMapping("/ads/create")
@@ -49,7 +49,7 @@ public class AdController {
     public String insertAd(@ModelAttribute Ad ad) {
         Ad adToSave = new Ad(
                 ad.getTitle(),
-                ad.getDescription()
+                ad.getBody()
         );
         adsDao.save(adToSave);
         emailSvc.prepareAndSend(adToSave, "You created an ad!!", "Here is some more information about the ad you created... yay.");

@@ -13,8 +13,7 @@ public interface AdRepository extends JpaRepository <Ad, Long>{
     Ad findByTitle(String title);
 
     // examples using JPQL / HQL
-    @Query("from Ad ad WHERE ad.id LIKE ?1")
-    Ad getAdById(long id);
+    Ad findAdById(long id);
 
     @Query("select title from Ad where LENGTH(title) < 10")
     List<String> getAdsOfCertainTitleLength();
