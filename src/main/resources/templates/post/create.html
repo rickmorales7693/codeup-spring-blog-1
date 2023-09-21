@@ -13,13 +13,15 @@
             <label>Title:</label>
             <input th:field="*{title}" type="text"/>
         </div>
+        <br>
         <div>
             <label>Body:</label>
             <textarea th:field="*{body}"></textarea>
-<!--            <input th:field="*{body}">-->
         </div>
+        <br>
         <div>
             <button type="submit">Create</button>
+            <button><a href="/posts">Cancel</a></button>
         </div>
     </form>
 </div>
