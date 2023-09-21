@@ -53,7 +53,7 @@ public class SecurityConfiguration {
                 /* Login configuration */
                 .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/posts"))
                 /* Logout configuration */
-                .logout((logout) -> logout.logoutSuccessUrl("/"));
+                .logout((logout) -> logout.logoutSuccessUrl("/login"));
         return http.build();
     }
 
