@@ -5,6 +5,8 @@ import com.codeup.codeupspringblog1.models.User;
 import com.codeup.codeupspringblog1.repositories.PostRepository;
 import com.codeup.codeupspringblog1.repositories.UserRepository;
 import com.codeup.codeupspringblog1.services.EmailSvc;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -57,11 +59,11 @@ public class PostController {
 
     @PostMapping("/create")
     public String createNewPost(@ModelAttribute Post post) {
-        User hardCode = userDao.findById(1L).get();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Post postToSave = new Post(
                 post.getTitle(),
                 post.getBody(),
-                hardCode
+                user
         );
         postDao.save(postToSave);
         emailSvc.prepareAndSend(postToSave, "You created a post!!", "Here is some more information about the post you created... yay.");
