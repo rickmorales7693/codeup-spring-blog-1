@@ -62,6 +62,20 @@ public class User {
         this.post = post;
     }
 
+    public User(User copy){
+        id = copy.id;
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
+
+
+
+
+
+
+
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -101,5 +115,11 @@ public class User {
     public void setPost(List<Post> post) {
         this.post = post;
     }
+
+
+
+
+
+
 
 }
