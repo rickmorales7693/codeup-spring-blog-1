@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User<unique> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,11 +16,11 @@ public class User {
     private Long id;
 
 
-    @Column(name = "username", columnDefinition = "varchar(200) NOT NULL")
+    @Column(name = "username", columnDefinition = "varchar(200) NOT NULL", unique = true)
     private String username;
 
 
-    @Column(name = "email", columnDefinition = "varchar(200) NOT NULL")
+    @Column(name = "email", columnDefinition = "varchar(200) NOT NULL", unique = true)
     private String email;
 
 
