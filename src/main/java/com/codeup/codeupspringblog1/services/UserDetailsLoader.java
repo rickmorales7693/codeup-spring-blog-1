@@ -3,7 +3,6 @@ package com.codeup.codeupspringblog1.services;
 import com.codeup.codeupspringblog1.models.User;
 import com.codeup.codeupspringblog1.models.UserWIthRoles;
 import com.codeup.codeupspringblog1.repositories.UserRepository;
-import jakarta.persistence.Entity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,10 +16,6 @@ public class UserDetailsLoader implements UserDetailsService {
 
     public UserDetailsLoader(UserRepository userRepository) {
         this.userRepository = userRepository;
-    }
-
-    public UserDetailsLoader() {
-
     }
 
     @Override

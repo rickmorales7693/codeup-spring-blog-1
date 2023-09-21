@@ -1,4 +1,4 @@
-package com.codeup.codeupspringblog1;
+package com.codeup.codeupspringblog1.config;
 
 
 import com.codeup.codeupspringblog1.services.UserDetailsLoader;
