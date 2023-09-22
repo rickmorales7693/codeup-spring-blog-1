@@ -60,6 +60,7 @@ public class PostController {
     @PostMapping("/create")
     public String createNewPost(@ModelAttribute Post post) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User postAuthor = userDao.findById(user.getId()).get();
         Post postToSave = new Post(
                 post.getTitle(),
                 post.getBody(),
